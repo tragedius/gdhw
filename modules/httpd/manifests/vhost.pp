@@ -1,4 +1,4 @@
-define httpd::vhost ($port, $server_name, $vhost_name, $ssl = false , $doc_root=false, $rdr_dummy = false, $rdr_from=false, $rdr_to=false) {
+define httpd::vhost ($port, $server_name, $vhost_name, $ssl = false , $doc_root=false, $rdr_dummy = false, $rdr_from=false, $rdr_to=false, $allowes=false) {
 	contain httpd
 	file { "/etc/httpd/conf.d/$server_name-$port.conf":
 		content	=> template('/etc/puppet/modules/httpd/files/etc/httpd/conf.d/vhost.conf.erb'),

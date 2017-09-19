@@ -13,6 +13,14 @@ class httpd {
 		notify	=> Service['httpd'], # restart httpd vzdy po zmene httpd.conf
 		require => Package['httpd'],
 	}
+	file { '/etc/httpd/conf.d/ssl.conf':
+		source	=> '/etc/puppet/modules/httpd/files/etc/httpd/conf.d/ssl.conf',
+		owner	=> 'root',
+		group 	=> 'root',
+		mode	=> '0644',
+		notify	=> Service['httpd'], # restart httpd vzdy po zmene httpd.conf
+		require => Package['mod_ssl'],
+	}
 	file { "/etc/httpd/ssl":
 		ensure => directory,
 		owner	=> 'root',

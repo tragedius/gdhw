@@ -15,6 +15,7 @@
 	DocumentRoot /var/www/html/<%= @doc_root %>
 	<Directory /var/www/html/<%= @doc_root %>>
 	 	AllowOverride none
+		<% if @allowes %>AllowOverrideList <%= @allowes%><% end %>
 		Order Allow,Deny
 		Allow from all
 	</Directory>

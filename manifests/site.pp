@@ -4,6 +4,7 @@ node default {
 		server_name 	=> 'a.traged.net',
 		vhost_name	=> "*",	
 		doc_root 	=> 'a.traged.net',
+		allowes		=> 'Redirect'
 	}
 	
 	httpd::vhost { 'b':
@@ -21,6 +22,7 @@ node default {
                 vhost_name      => "*",
 		ssl		=> true,
 		doc_root 	=> 'b.traged.net',
+		doc_alias        => '"/" "/foo"',
 	}
 
 	httpd::vhost { 'c':
@@ -41,12 +43,14 @@ node default {
 	}
 
 	httpd::vhost { 'd':
-		port 		=> 80,
+		port 		=> 443,
 		server_name 	=> 'd.traged.net',
 		vhost_name	=> "*",	
+		server_aliases	=> 'e.traged.net f.traged.net',
+		ssl		=> true,
 		rdr_dummy	=> true,
 		rdr_from        => '/',
-		rdr_to          => 'http://a.traged.net',
+		rdr_to          => 'https://c.traged.net',
 	}
 
 

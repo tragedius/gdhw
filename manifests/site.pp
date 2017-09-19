@@ -1,23 +1,52 @@
 node default {
-	# include httpd
-	httpd::vhost { 'a.traged.net':
+	httpd::vhost { 'a':
 		port 		=> 80,
 		server_name 	=> 'a.traged.net',
 		vhost_name	=> "*",	
 		doc_root 	=> 'a.traged.net',
 	}
-
-	httpd::vhost_dummy { 'b.traged.net':
-		port		=> 80,
-		server_name     => 'b.traged.net',
-                vhost_name      => "*",
-	}
-
-	httpd::vhost_ssl { 'b.traged.net':
-		port 		=> 443,
+	
+	httpd::vhost { 'b':
+		port 		=> 80,
 		server_name 	=> 'b.traged.net',
 		vhost_name	=> "*",	
+		rdr_dummy	=> true,
+		rdr_from	=> '/',
+		rdr_to		=> 'https://b.traged.net',
+	}
+
+	httpd::vhost { 'b_ssl':
+		port		=> 443,
+		server_name     => 'b.traged.net',
+                vhost_name      => "*",
+		ssl		=> true,
 		doc_root 	=> 'b.traged.net',
+	}
+
+	httpd::vhost { 'c':
+		port 		=> 80,
+		server_name 	=> 'c.traged.net',
+		vhost_name	=> "*",	
+		rdr_dummy	=> true,
+		rdr_from	=> '/',
+		rdr_to		=> 'https://c.traged.net',
+	}
+
+	httpd::vhost { 'c_ssl':
+		port		=> 443,
+		server_name     => 'c.traged.net',
+                vhost_name      => "*",
+		ssl		=> true,
+		doc_root 	=> 'c.traged.net',
+	}
+
+	httpd::vhost { 'd':
+		port 		=> 80,
+		server_name 	=> 'd.traged.net',
+		vhost_name	=> "*",	
+		rdr_dummy	=> true,
+		rdr_from        => '/',
+		rdr_to          => 'http://a.traged.net',
 	}
 
 

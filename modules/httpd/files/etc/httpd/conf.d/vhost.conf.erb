@@ -1,12 +1,20 @@
 <VirtualHost <%= @vhost_name %>:<%= @port %>>
-	ServerName <%= @server_name %> 
-	DocumentRoot /var/www/html/<%= @server_name %> 
+	<% if @ssl %>
+	SSLEngine on
+	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP
+	SSLCertificateFile	/etc/httpd/ssl/<%= @server_name %>.crt
+	SSLCertificateKeyFile	/etc/httpd/ssl/<%= @server_name %>.key
+	<% end %>
+	ServerName <%= @server_name %>
 	CustomLog	"/var/log/httpd/<%= @server_name %>_access.log" combined
 	ErrorLog	"/var/log/httpd/<%= @server_name %>_errori.log"
+	<% if @rdr_dummy %>
+	RedirectPermanent	<%= @rdr_from %> <%= @rdr_to %>
+	<% end %>
 	<% if @doc_root %>
+	DocumentRoot /var/www/html/<%= @doc_root %>
 	<Directory /var/www/html/<%= @doc_root %>>
-		AllowOverride none
-
+	 	AllowOverride none
 		Order Allow,Deny
 		Allow from all
 	</Directory>

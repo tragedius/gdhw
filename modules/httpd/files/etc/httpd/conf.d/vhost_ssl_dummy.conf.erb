@@ -1,0 +1,7 @@
+<VirtualHost <%= @vhost_name %>:<%= @port %>>
+	ServerName <%= @server_name %>
+	<% if @redirect_url %>RedirectPermanent / <%= @redirect_url %><% end %>
+	<% if @rewrite_from %>Rewrite <%= @rewrite_from %> <%= @rewrite_to %><% end %>
+	CustomLog	"/var/log/httpd/<%= @server_name %>_access.log" combined
+	ErrorLog	"/var/log/httpd/<%= @server_name %>_error.log"
+</VirtualHost>

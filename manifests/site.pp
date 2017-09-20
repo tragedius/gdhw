@@ -4,7 +4,7 @@ node default {
 		server_name 	=> 'a.traged.net',
 		vhost_name	=> "*",	
 		doc_root 	=> 'a.traged.net',
-		allowes		=> 'Redirect'
+		allowes		=> 'Redirect',
 	}
 	
 	httpd::vhost { 'b':
@@ -22,7 +22,7 @@ node default {
                 vhost_name      => "*",
 		ssl		=> true,
 		doc_root 	=> 'b.traged.net',
-		doc_alias        => '"/" "/foo"',
+		doc_alias        => '"/" "/foo/"',
 	}
 
 	httpd::vhost { 'c':

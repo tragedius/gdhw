@@ -7,14 +7,14 @@
 	ServerName <%= @server_name %>
 	<% if @server_aliases %>ServerAlias <%= @server_aliases %><% end %>
 	CustomLog	"/var/log/httpd/<%= @server_name %>_access.log" combined
-	ErrorLog	"/var/log/httpd/<%= @server_name %>_errori.log"
+	ErrorLog	"/var/log/httpd/<%= @server_name %>_error.log"
 	<% if @rdr_dummy %>Redirect	<%= @rdr_from %> <%= @rdr_to %><% end %>
 	<% if @doc_alias %>Alias <%= @doc_alias %><% end %>
 	<% if @doc_root %>
 	DocumentRoot /var/www/html/<%= @doc_root %>
 	<Directory /var/www/html/<%= @doc_root %>>
 	 	AllowOverride none
-		<% if @allowes %>AllowOverrideList <%= @allowesi %><% end %>
+		<% if @allowes %>AllowOverrideList <%= @allowes %><% end %>
 		Order Allow,Deny
 		Allow from all
 	</Directory>

@@ -1,11 +1,12 @@
 define httpd::vhost ($port, $server_name, $vhost_name, $server_aliases=false, $doc_alias=false, $ssl = false , $doc_root=false, $rdr_dummy = false, $rdr_from=false, $rdr_to=false, $allowes=false) {
-	contain httpd
+	include httpd
 	file { "/etc/httpd/conf.d/$server_name-$port.conf":
 		content	=> template('/etc/puppet/modules/httpd/files/etc/httpd/conf.d/vhost.conf.erb'),
 		owner	=> 'root',
 		group 	=> 'root',
 		mode	=> '0644',
-		notify	=> Service['httpd']
+		require => Package['httpd'],
+		notify	=> Service['httpd'],
 	}
 		
 	if $ssl == true {
@@ -16,6 +17,7 @@ define httpd::vhost ($port, $server_name, $vhost_name, $server_aliases=false, $d
 			owner	=> 'apache',
 			group 	=> 'apache',
 			mode	=> '0500',
+			require => Package['mod_ssl'],
 			notify	=> Service['httpd']
 		}
 
@@ -25,7 +27,8 @@ define httpd::vhost ($port, $server_name, $vhost_name, $server_aliases=false, $d
 			owner	=> 'apache',
 			group 	=> 'apache',
 			mode	=> '0500',
-			notify	=> Service['httpd']
+			require => Package['mod_ssl'],
+			notify	=> Service['httpd'],
 		}
 	}
 }

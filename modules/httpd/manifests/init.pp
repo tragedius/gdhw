@@ -26,6 +26,7 @@ class httpd {
 		owner	=> 'root',
 		group 	=> 'root',
 		mode	=> '0644',
+		require => Package['httpd'],
 	}
 	
 	service	{ 'httpd':
